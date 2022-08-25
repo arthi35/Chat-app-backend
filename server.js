@@ -16,14 +16,16 @@ require('./connection')
 
 
 const server = require('http').createServer(app);
-const PORT = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 const io = require('socket.io')(server,{
     cors:{
         origin: '*',
         methods: ['GET', 'POST']
     }
 })
-
+app.get("/", (req, res) =>
+  res.send(`Server Running`)
+);
 //to get the rooms 
 app.get('/rooms', (req, res) => {
     res.json(rooms)
@@ -97,6 +99,6 @@ io.on('connection', (socket)=>{
 } )
 
 
-server.listen(PORT, ()=>{
-console.log('listening to', PORT)
+server.listen(port, ()=>{
+console.log('listening to', port)
 })
